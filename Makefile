@@ -1,5 +1,5 @@
 setup:
-	@yarn
+	@npm install
 
 run:
 	@npm run start
@@ -18,3 +18,6 @@ watch_unit:
 
 build:
 	@npm run --silent build
+
+build_dist:
+	@npm run --silent build:dist
