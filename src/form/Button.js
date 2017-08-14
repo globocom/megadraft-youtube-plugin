@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016, Artur Sousa <arturfelipe.sousa@gmail.com>
+ * Copyright (c) 2017, Globo.com (https://github.com/globocom)
  *
  * License: MIT
  */
