@@ -20,7 +20,7 @@ export default class Button extends Component {
   onClick(e) {
     const data = {
       type: constants.PLUGIN_TYPE,
-      caption: "Initial plugin text"
+      url: ""
     };
 
     this.props.onChange(insertDataBlock(this.props.editorState, data));
