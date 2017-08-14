@@ -11,8 +11,8 @@ module.exports = {
   output: {
     path: "./dist",
     publicPath: "/dist/",
-    filename: "youteste.js",
-    library: "youteste",
+    filename: "youtube.js",
+    library: "youtube",
     libraryTarget: "umd"
   },
   externals: {
