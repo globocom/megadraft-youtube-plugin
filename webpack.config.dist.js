@@ -6,13 +6,13 @@
 
 module.exports = {
   entry: [
-    "."
+    "./src/plugin.js"
   ],
   output: {
     path: "./dist",
     publicPath: "/dist/",
-    filename: "megadraft-youtube-plugin.js",
-    library: "megadraft-youtube-plugin",
+    filename: "youtube.js",
+    library: "youtube",
     libraryTarget: "umd"
   },
   externals: {
