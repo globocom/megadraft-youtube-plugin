@@ -1,7 +1,6 @@
 tipo: megadraft-plugin
-uuid: jornalismo/megadraft-youtube-plugin
-nome: Megadraft YouTube Plugin
+uuid: jornalismo/youtube
+nome: YouTube
 
 autor: Jornalismo
 email:
-screenshot: img/thumb_store.jpg
