@@ -16,9 +16,9 @@ export default class YouTube extends Component {
     return (
       <div className="megadraft-youtube">
         <iframe
-          width="560"
-          height="315"
           src={url}
+          width="640px"
+          height="360px"
           frameBorder="0"
           allowFullScreen>
         </iframe>

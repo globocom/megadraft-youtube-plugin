@@ -78,7 +78,10 @@ export default class Block extends React.Component {
     return (
       <CommonBlock {...this.props} actions={this.actions}>
         <BlockContent>
-          <YouTube videoID={this.state.videoID} />
+          { this.state.videoID
+            ? <YouTube videoID={this.state.videoID} />
+            : <pre>- PREVIEW -</pre>
+          }
         </BlockContent>
 
         <BlockData>

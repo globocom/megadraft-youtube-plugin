@@ -63,6 +63,10 @@
   -webkit-font-smoothing: antialiased;
   transition: all ease-in-out .20s; }
 
+.megadraft-youtube {
+  line-height: 0;
+  padding: 10px 0; }
+
 body {
   margin: 0; }
 
