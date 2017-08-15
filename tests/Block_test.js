@@ -19,7 +19,7 @@ let expect = chai.expect;
 describe("Block", function () {
   beforeEach(function () {
     this.data = {
-      url: "https://www.youtube.com/embed/m_3CM04TM2g"
+      videoID: "m_3CM04TM2g"
     };
 
     this.remove = sinon.spy();
@@ -43,7 +43,7 @@ describe("Block", function () {
   });
 
   it("should load data from props", function () {
-    expect(this.inputElement.value).to.be.equal(this.data.url);
+    expect(this.inputElement.value).to.be.equal(`https://www.youtube.com/embed/${this.data.videoID}`);
   });
 
   it("should have a button with a \"Load\" label", function () {

@@ -6,15 +6,14 @@
 
 import React from "react";
 import {MegadraftPlugin, MegadraftIcons} from "megadraft";
-import validUrl from "valid-url";
 
 import YouTube from "./YouTube";
 import Button from "./form/Button";
 import ErrorList from "./form/ErrorList";
+import YouTubeURLParser from "./utils/YouTubeURLParser";
 
 const {BlockContent, BlockData, BlockInput, CommonBlock} = MegadraftPlugin;
 
-const YOUTUBE_REGEX_VALIDATOR = /^https?:\/\/www\.youtube\.com\/embed\/\w+/;
 
 export default class Block extends React.Component {
   constructor(props) {
@@ -29,55 +28,49 @@ export default class Block extends React.Component {
       action: this.props.container.remove
     }];
 
-    this.state = this.getInitialState(props.data.url);
+    this.state = this.getInitialState(props.data.videoID);
   }
 
-  getInitialState(url="") {
+  getInitialState(videoID) {
     return {
-      url,
-      input: url,
+      videoID,
+      url: (videoID) ? `https://www.youtube.com/embed/${videoID}` : "",
       errors: []
     };
   }
 
   onChangeInput(e) {
     this.setState({
-      url: this.state.url,
-      input: e.target.value,
+      url: e.target.value,
       errors: []
     });
   }
 
   validate(url) {
+    let videoID;
     const errors = [];
-    if (!validUrl.isUri(url)) {
-      errors.push("Invalid URL");
-    } else if (!YOUTUBE_REGEX_VALIDATOR.exec(url)) {
-      errors.push("Invalid YouTube URL");
+
+    try {
+      let urlParser = new YouTubeURLParser(url);
+      videoID = urlParser.getVideoID();
+    } catch (err) {
+      errors.push(err.message);
+      console.error(err);
     }
-    return errors;
+    return [videoID, errors];
   }
 
   loadMedia() {
-    const url = this.state.input;
-    const errors = this.validate(url);
-
-    if (errors && errors.length) {
-      this.setState({
-        url: "",
-        input: this.state.input,
-        errors: errors
-      });
-      return;
-    }
+    const url = this.state.url;
+    const [videoID, errors] = this.validate(url);
 
     this.setState({
-      url: url,
-      input: url,
-      errors: []
+      videoID,
+      errors
     });
+
     this.props.container.updateData({
-      url: url
+      videoID
     });
   }
 
@@ -85,13 +78,13 @@ export default class Block extends React.Component {
     return (
       <CommonBlock {...this.props} actions={this.actions}>
         <BlockContent>
-          <YouTube url={this.state.url} />
+          <YouTube videoID={this.state.videoID} />
         </BlockContent>
 
         <BlockData>
           <BlockInput
             placeholder="Enter a YouTube URL"
-            value={(this.state.input) ? this.state.input : ""}
+            value={(this.state.url) ? this.state.url : ""}
             onChange={this.onChangeInput} />
           <ErrorList errors={this.state.errors} />
         </BlockData>

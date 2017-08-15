@@ -26,7 +26,7 @@ export default {
       text: "",
       data: {
         type: constants.PLUGIN_TYPE,
-        url: "https://www.youtube.com/embed/eWgPX1iuUK8"
+        videoID: "eWgPX1iuUK8"
       },
       entityRanges: []
     }

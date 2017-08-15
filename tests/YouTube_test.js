@@ -14,13 +14,13 @@ let expect = chai.expect;
 
 describe("YouTube", function () {
   beforeEach(function () {
-    this.url = "https://www.youtube.com/embed/m_3CM04TM2g";
+    this.videoID = "m_3CM04TM2g";
     this.component = TestUtils.renderIntoDocument(
-      <YouTube url={this.url} />
+      <YouTube videoID={this.videoID} />
     );
   });
 
-  it("should render nothing when no URL", function () {
+  it("should render nothing when no VideoID", function () {
     const component = TestUtils.renderIntoDocument(
       <YouTube />
     );
