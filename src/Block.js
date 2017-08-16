@@ -5,14 +5,14 @@
  */
 
 import React from "react";
-import {MegadraftPlugin, MegadraftIcons} from "megadraft";
+import { MegadraftPlugin, MegadraftIcons } from "megadraft";
 
 import YouTube from "./YouTube";
 import Button from "./form/Button";
 import ErrorList from "./form/ErrorList";
 import YouTubeURLParser from "./utils/YouTubeURLParser";
 
-const {BlockContent, BlockData, BlockInput, CommonBlock} = MegadraftPlugin;
+const { BlockContent, BlockData, BlockInput, CommonBlock } = MegadraftPlugin;
 
 
 export default class Block extends React.Component {
@@ -28,10 +28,10 @@ export default class Block extends React.Component {
       action: this.props.container.remove
     }];
 
-    this.state = this.getInitialState(props.data.videoID);
+    this.state = this.buildInitialState(props.data.videoID);
   }
 
-  getInitialState(videoID) {
+  buildInitialState(videoID) {
     return {
       videoID,
       url: (videoID) ? `https://www.youtube.com/embed/${videoID}` : "",

@@ -6,7 +6,7 @@
 
 import validUrl from "valid-url";
 
-function YouTubeURLException(message) {
+export function YouTubeURLException(message) {
   this.message = message;
   this.name = "YouTubeURLException";
 }
