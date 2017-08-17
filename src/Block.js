@@ -74,14 +74,24 @@ export default class Block extends React.Component {
     });
   }
 
+  renderContent() {
+    let content;
+
+    if (this.state.errors.length > 0) {
+      content = <pre>- INVALID URL -</pre>;
+    } else if (this.state.videoID) {
+      content = <YouTube videoID={this.state.videoID} />;
+    } else {
+      content = <pre>- PREVIEW -</pre>;
+    }
+    return content;
+  }
+
   render() {
     return (
       <CommonBlock {...this.props} actions={this.actions}>
         <BlockContent>
-          { this.state.videoID
-            ? <YouTube videoID={this.state.videoID} />
-            : <pre>- PREVIEW -</pre>
-          }
+          { this.renderContent() }
         </BlockContent>
 
         <BlockData>

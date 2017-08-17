@@ -185,6 +185,12 @@ describe("Block", function () {
         sinon.assert.calledOnce(this.updateData);
         sinon.assert.calledWith(this.updateData, { videoID: undefined });
       });
+
+      it("should render pre with - INVALID URL -", function () {
+        const wrapper = this.block.find("pre").first();
+        expect(wrapper).to.exist;
+        expect(wrapper).to.have.text("- INVALID URL -");
+      });
     });
   });
 });
