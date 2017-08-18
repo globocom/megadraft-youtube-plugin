@@ -4,6 +4,8 @@
  * License: MIT
  */
 
+/* global __ */
+
 import React from "react";
 import { MegadraftPlugin, MegadraftIcons } from "megadraft";
 
@@ -13,7 +15,6 @@ import ErrorList from "./form/ErrorList";
 import YouTubeURLParser from "./utils/YouTubeURLParser";
 
 const { BlockContent, BlockData, BlockInput, CommonBlock } = MegadraftPlugin;
-
 
 export default class Block extends React.Component {
   constructor(props) {
@@ -78,11 +79,11 @@ export default class Block extends React.Component {
     let content;
 
     if (this.state.errors.length > 0) {
-      content = <pre>- INVALID YOUTUBE URL -</pre>;
+      content = <pre>- {__("INVALID YOUTUBE URL")} -</pre>;
     } else if (this.state.videoID) {
       content = <YouTube videoID={this.state.videoID} />;
     } else {
-      content = <pre>- PREVIEW -</pre>;
+      content = <pre>- {__("PREVIEW")} -</pre>;
     }
     return content;
   }
@@ -96,14 +97,14 @@ export default class Block extends React.Component {
 
         <BlockData>
           <BlockInput
-            placeholder="Enter a YouTube URL"
+            placeholder={__("Enter a YouTube URL")}
             value={(this.state.url) ? this.state.url : ""}
             onChange={this.onChangeInput} />
           <ErrorList errors={this.state.errors} />
         </BlockData>
 
         <BlockData>
-          <Button label="Load" onClick={this.loadMedia} />
+          <Button label={__("Load")} onClick={this.loadMedia} />
         </BlockData>
       </CommonBlock>
     );

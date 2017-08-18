@@ -20,6 +20,8 @@ import ErrorList from "../src/form/ErrorList";
 chai.use(chaiEnzyme());
 let expect = chai.expect;
 
+global.__ = global.window.__;
+
 describe("Block", function () {
   before(function () {
     this.data = {
