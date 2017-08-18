@@ -6,8 +6,6 @@
 
 /* global __ */
 
-import validUrl from "valid-url";
-
 export function YouTubeURLException(message) {
   this.message = message;
   this.name = "YouTubeURLException";
@@ -40,16 +38,17 @@ export default class YouTubeURLParser {
   validate(url) {
     let urlObj;
 
-    if (!validUrl.isUri(url)) {
-      throw new YouTubeURLException(__("Invalid URL."));
-    } else {
+    try {
       urlObj = new URL(url);
-      let urlType = this.getUrlType(urlObj);
-
-      if (!urlType) {
-        throw new YouTubeURLException(__("Invalid YouTube URL."));
-      }
+    } catch(err) {
+      throw new YouTubeURLException(__("Invalid URL."));
     }
+
+    const urlType = this.getUrlType(urlObj);
+    if (!urlType) {
+      throw new YouTubeURLException(__("Invalid YouTube URL."));
+    }
+
     return urlObj;
   }
 

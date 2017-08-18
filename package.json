@@ -5,8 +5,7 @@
   "main": "dist/youtube.js",
   "style": "dist/css/plugin.css",
   "dependencies": {
-    "debounce": "^1.0.2",
-    "valid-url": "^1.0.9"
+    "debounce": "^1.0.2"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
