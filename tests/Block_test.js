@@ -189,7 +189,7 @@ describe("Block", function () {
       it("should render pre with - INVALID URL -", function () {
         const wrapper = this.block.find("pre").first();
         expect(wrapper).to.exist;
-        expect(wrapper).to.have.text("- INVALID URL -");
+        expect(wrapper).to.have.text("- INVALID YOUTUBE URL -");
       });
     });
   });

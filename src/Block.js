@@ -78,7 +78,7 @@ export default class Block extends React.Component {
     let content;
 
     if (this.state.errors.length > 0) {
-      content = <pre>- INVALID URL -</pre>;
+      content = <pre>- INVALID YOUTUBE URL -</pre>;
     } else if (this.state.videoID) {
       content = <YouTube videoID={this.state.videoID} />;
     } else {
