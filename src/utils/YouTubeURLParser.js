@@ -4,6 +4,8 @@
  * License: MIT
  */
 
+/* global __ */
+
 import validUrl from "valid-url";
 
 export function YouTubeURLException(message) {
@@ -39,13 +41,13 @@ export default class YouTubeURLParser {
     let urlObj;
 
     if (!validUrl.isUri(url)) {
-      throw new YouTubeURLException("Invalid URL.");
+      throw new YouTubeURLException(__("Invalid URL."));
     } else {
       urlObj = new URL(url);
       let urlType = this.getUrlType(urlObj);
 
       if (!urlType) {
-        throw new YouTubeURLException("Invalid YouTube URL.");
+        throw new YouTubeURLException(__("Invalid YouTube URL."));
       }
     }
     return urlObj;
