@@ -8,9 +8,9 @@
 
 import React from "react";
 import { MegadraftPlugin, MegadraftIcons } from "megadraft";
+import debounce from "debounce";
 
 import YouTube from "./YouTube";
-import Button from "./form/Button";
 import ErrorList from "./form/ErrorList";
 import YouTubeURLParser from "./utils/YouTubeURLParser";
 
@@ -21,7 +21,10 @@ export default class Block extends React.Component {
     super(props);
 
     this.onChangeInput = ::this.onChangeInput;
-    this.loadMedia = ::this.loadMedia;
+    this.loadMedia = debounce(
+      ::this.loadMedia,
+      800
+    );
 
     this.actions = [{
       key: "delete",
@@ -38,6 +41,12 @@ export default class Block extends React.Component {
       url: (videoID) ? `https://www.youtube.com/embed/${videoID}` : "",
       errors: []
     };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.url && prevState.url !== this.state.url) {
+      this.loadMedia();
+    }
   }
 
   onChangeInput(e) {
@@ -101,10 +110,6 @@ export default class Block extends React.Component {
             value={(this.state.url) ? this.state.url : ""}
             onChange={this.onChangeInput} />
           <ErrorList errors={this.state.errors} />
-        </BlockData>
-
-        <BlockData>
-          <Button label={__("Load")} onClick={this.loadMedia} />
         </BlockData>
       </CommonBlock>
     );

@@ -63,11 +63,6 @@ describe("Block", function () {
       const wrapper = this.block.find(ErrorList).first();
       expect(wrapper).to.have.prop("errors").deep.equal([]);
     });
-
-    it("should have a button with a \"Load\" label", function () {
-      const buttonElement = this.block.find("button").first();
-      expect(buttonElement).to.have.text("Load");
-    });
   });
 
   describe("Edit", function () {
@@ -124,13 +119,13 @@ describe("Block", function () {
     });
   });
 
-  describe("onClick Load button", function () {
+  describe("on loadMedia", function () {
     beforeEach(function () {
       this.updateData = sinon.spy();
       this.block = this.renderBlock();
-
+      this.debounceStub = sinon.stub(this.block.instance(), "loadMedia")
+        .callsFake(Block.prototype.loadMedia);
       this.errorList = this.block.find(ErrorList).first();
-      this.buttonElement = this.block.find("button").first();
     });
 
     describe("with valid url", function () {
@@ -139,7 +134,6 @@ describe("Block", function () {
         this.newUrl = `https://www.youtube.com/embed/${this.newVideoID}`;
 
         this.block.setState({url: this.newUrl});
-        this.buttonElement.simulate("click");
       });
 
       it("should render ErrorList with empty errors Array", function () {
@@ -168,7 +162,6 @@ describe("Block", function () {
         this.newUrl = `https://www.yoltub123.com/embed/${this.newVideoID}`;
 
         this.block.setState({url: this.newUrl});
-        this.buttonElement.simulate("click");
       });
 
       it("should render ErrorList with errors", function () {
