@@ -1,6 +1,6 @@
 {
   "name": "megadraft-youtube-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "megadraft-youtube-plugin",
   "main": "dist/youtube.js",
   "style": "dist/css/plugin.css",
