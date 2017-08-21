@@ -98,12 +98,13 @@ export default class Block extends React.Component {
     if (this.state.errors.length > 0) {
       content = <pre>- {this.state.errors[0].toUpperCase()} -</pre>;
     } else if (this.state.unexpectedErrors.length > 0) {
-      content += (
+      content = [
         <MegadraftMediaMessage
           type="error"
           text={this.state.unexpectedErrors[0]}
-        />
-      );
+        />,
+        content
+      ];
     } else if (this.state.videoID) {
       content = <YouTube videoID={this.state.videoID} />;
     }
