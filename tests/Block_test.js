@@ -43,10 +43,10 @@ describe("Block", function () {
       this.block = this.renderBlock();
     });
 
-    it("should render pre with - PREVIEW -", function () {
+    it("should render pre with PREVIEW", function () {
       const wrapper = this.block.find("pre").first();
       expect(wrapper).to.exist;
-      expect(wrapper).to.have.text("- PREVIEW -");
+      expect(wrapper).to.have.text("PREVIEW");
     });
 
     it("should not render YouTube component", function () {
@@ -166,10 +166,10 @@ describe("Block", function () {
         sinon.assert.calledWith(this.updateData, { videoID: undefined });
       });
 
-      it("should render pre with - INVALID URL -", function () {
+      it("should render pre with INVALID URL", function () {
         const wrapper = this.block.find("pre").first();
         expect(wrapper).to.exist;
-        expect(wrapper).to.have.text("- INVALID YOUTUBE URL -");
+        expect(wrapper).to.have.text("INVALID YOUTUBE URL");
       });
     });
   });

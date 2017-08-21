@@ -93,10 +93,10 @@ export default class Block extends React.Component {
   }
 
   renderContent() {
-    let content = <pre>- {__("PREVIEW")} -</pre>;
+    let content = <pre>{__("PREVIEW")}</pre>;
 
     if (this.state.errors.length > 0) {
-      content = <pre>- {this.state.errors[0].toUpperCase()} -</pre>;
+      content = <pre>{this.state.errors[0].toUpperCase()}</pre>;
     } else if (this.state.unexpectedErrors.length > 0) {
       content = [
         <MegadraftMediaMessage
