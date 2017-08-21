@@ -41,12 +41,12 @@ export default class YouTubeURLParser {
     try {
       urlObj = new URL(url);
     } catch(err) {
-      throw new YouTubeURLException(__("Invalid URL."));
+      throw new YouTubeURLException(__("Invalid URL"));
     }
 
     const urlType = this.getUrlType(urlObj);
     if (!urlType) {
-      throw new YouTubeURLException(__("Invalid YouTube URL."));
+      throw new YouTubeURLException(__("Invalid YouTube URL"));
     }
 
     return urlObj;

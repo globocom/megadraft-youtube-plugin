@@ -15,7 +15,6 @@ import { MegadraftIcons } from "megadraft";
 
 import Block from "../src/Block";
 import YouTube from "../src/YouTube";
-import ErrorList from "../src/form/ErrorList";
 
 chai.use(chaiEnzyme());
 let expect = chai.expect;
@@ -57,11 +56,6 @@ describe("Block", function () {
     it("should render input with no value", function () {
       const wrapper = this.block.find("input").first();
       expect(wrapper).to.have.prop("value", "");
-    });
-
-    it("should render ErrorList with no errors", function () {
-      const wrapper = this.block.find(ErrorList).first();
-      expect(wrapper).to.have.prop("errors").deep.equal([]);
     });
   });
 
@@ -125,7 +119,6 @@ describe("Block", function () {
       this.block = this.renderBlock();
       this.debounceStub = sinon.stub(this.block.instance(), "loadMedia")
         .callsFake(Block.prototype.loadMedia);
-      this.errorList = this.block.find(ErrorList).first();
     });
 
     describe("with valid url", function () {
@@ -134,10 +127,6 @@ describe("Block", function () {
         this.newUrl = `https://www.youtube.com/embed/${this.newVideoID}`;
 
         this.block.setState({url: this.newUrl});
-      });
-
-      it("should render ErrorList with empty errors Array", function () {
-        expect(this.errorList).to.have.prop("errors").to.have.lengthOf(0);
       });
 
       it("should update block videoID state with newVideoID", function () {
@@ -162,10 +151,6 @@ describe("Block", function () {
         this.newUrl = `https://www.yoltub123.com/embed/${this.newVideoID}`;
 
         this.block.setState({url: this.newUrl});
-      });
-
-      it("should render ErrorList with errors", function () {
-        expect(this.errorList).to.have.prop("errors").to.have.lengthOf(1);
       });
 
       it("should update block videoID state to no value", function () {

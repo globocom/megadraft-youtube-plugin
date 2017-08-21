@@ -7,12 +7,11 @@
 /* global __ */
 
 import React from "react";
-import { MegadraftPlugin, MegadraftIcons } from "megadraft";
+import { MegadraftPlugin, MegadraftIcons, MegadraftMediaMessage } from "megadraft";
 import debounce from "debounce";
 
 import YouTube from "./YouTube";
-import ErrorList from "./form/ErrorList";
-import YouTubeURLParser from "./utils/YouTubeURLParser";
+import YouTubeURLParser, { YouTubeURLException } from "./utils/YouTubeURLParser";
 
 const { BlockContent, BlockData, BlockInput, CommonBlock } = MegadraftPlugin;
 
@@ -39,7 +38,8 @@ export default class Block extends React.Component {
     return {
       videoID,
       url: (videoID) ? `https://www.youtube.com/embed/${videoID}` : "",
-      errors: []
+      errors: [],
+      unexpectedErrors: []
     };
   }
 
@@ -52,31 +52,39 @@ export default class Block extends React.Component {
   onChangeInput(e) {
     this.setState({
       url: e.target.value,
-      errors: []
+      errors: [],
+      unexpectedErrors: []
     });
   }
 
   validate(url) {
     let videoID;
-    const errors = [];
+    const errors = [],
+      unexpectedErrors = [];
 
     try {
       let urlParser = new YouTubeURLParser(url);
       videoID = urlParser.getVideoID();
     } catch (err) {
-      errors.push(err.message);
       console.error(err);
+
+      if (err instanceof YouTubeURLException) {
+        errors.push(err.message);
+      } else {
+        unexpectedErrors.push(err.message);
+      }
     }
-    return [videoID, errors];
+    return [videoID, errors, unexpectedErrors];
   }
 
   loadMedia() {
     const url = this.state.url;
-    const [videoID, errors] = this.validate(url);
+    const [videoID, errors, unexpectedErrors] = this.validate(url);
 
     this.setState({
       videoID,
-      errors
+      errors,
+      unexpectedErrors
     });
 
     this.props.container.updateData({
@@ -85,14 +93,19 @@ export default class Block extends React.Component {
   }
 
   renderContent() {
-    let content;
+    let content = <pre>- {__("PREVIEW")} -</pre>;
 
     if (this.state.errors.length > 0) {
-      content = <pre>- {__("INVALID YOUTUBE URL")} -</pre>;
+      content = <pre>- {this.state.errors[0].toUpperCase()} -</pre>;
+    } else if (this.state.unexpectedErrors.length > 0) {
+      content += (
+        <MegadraftMediaMessage
+          type="error"
+          text={this.state.unexpectedErrors[0]}
+        />
+      );
     } else if (this.state.videoID) {
       content = <YouTube videoID={this.state.videoID} />;
-    } else {
-      content = <pre>- {__("PREVIEW")} -</pre>;
     }
     return content;
   }
@@ -109,7 +122,6 @@ export default class Block extends React.Component {
             placeholder={__("Enter a YouTube URL")}
             value={(this.state.url) ? this.state.url : ""}
             onChange={this.onChangeInput} />
-          <ErrorList errors={this.state.errors} />
         </BlockData>
       </CommonBlock>
     );
