@@ -43,3 +43,4 @@ jspm_packages
 
 dist/
 lib/
+.DS_Store
