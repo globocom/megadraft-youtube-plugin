@@ -43,12 +43,6 @@ export default class Block extends React.Component {
     };
   }
 
-  componentWillReceiveProps(props){
-    this.setState({
-      readOnly: props.blockProps.getReadOnly()
-    });
-  }
-
   componentDidUpdate(prevProps, prevState) {
     if (this.state.url && prevState.url !== this.state.url) {
       this.loadMedia();
