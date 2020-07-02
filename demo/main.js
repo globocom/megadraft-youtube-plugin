@@ -36,7 +36,7 @@ class Demo extends React.Component {
         </header>
 
         <div className="editor">
-          <MegadraftEditor plugins={[plugin]} editorState={this.state.content} onChange={this.onChange} />
+          <MegadraftEditor plugins={[plugin]} readOnly={true} editorState={this.state.content} onChange={this.onChange} />
           <pre>{editorStateToJSON(this.state.content)}</pre>
         </div>
       </div>

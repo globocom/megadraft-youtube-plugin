@@ -41,6 +41,4 @@ jspm_packages
 *.swo
 *.swn
 
-dist/
-lib/
 .DS_Store
