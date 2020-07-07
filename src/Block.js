@@ -24,22 +24,22 @@ export default class Block extends React.Component {
       ::this.loadMedia,
       800
     );
-
     this.actions = [{
       key: "delete",
       icon: MegadraftIcons.DeleteIcon,
       action: this.props.container.remove
     }];
 
-    this.state = this.buildInitialState(props.data.videoID);
+    this.state = this.buildInitialState(props.data.videoID,props.blockProps.getReadOnly());
   }
 
-  buildInitialState(videoID) {
+  buildInitialState(videoID,readOnly) {
     return {
       videoID,
-      url: (videoID) ? `https://www.youtube.com/embed/${videoID}` : "",
+      url: (videoID) ? `https://www.youtube-nocookie.com/embed/${videoID}` : "",
       errors: [],
-      unexpectedErrors: []
+      unexpectedErrors: [],
+      readOnly: readOnly
     };
   }
 
@@ -113,17 +113,20 @@ export default class Block extends React.Component {
 
   render() {
     return (
-      <CommonBlock {...this.props} actions={this.actions}>
+      <CommonBlock {...this.props} actions={(!this.state.readOnly && this.actions)||[]}>
         <BlockContent>
           { this.renderContent() }
         </BlockContent>
 
-        <BlockData>
+        {!this.state.readOnly && <BlockData>
           <BlockInput
             placeholder={__("Enter a YouTube URL")}
             value={(this.state.url) ? this.state.url : ""}
             onChange={this.onChangeInput} />
-        </BlockData>
+        </BlockData>}
+        {this.state.readOnly && <BlockData>
+          <div className="megadraft-youtube-text">{(this.state.url) ? this.state.url : ""}</div>
+        </BlockData>}
       </CommonBlock>
     );
   }

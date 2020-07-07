@@ -12,13 +12,11 @@ export default class YouTube extends Component {
       return null;
     }
 
-    const url = `https://www.youtube.com/embed/${this.props.videoID}`;
+    const url = `https://www.youtube-nocookie.com/embed/${this.props.videoID}`;
     return (
       <div className="megadraft-youtube">
         <iframe
           src={url}
-          width="640px"
-          height="360px"
           frameBorder="0"
           allowFullScreen>
         </iframe>

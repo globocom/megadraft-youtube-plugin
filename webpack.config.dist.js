@@ -16,9 +16,9 @@ module.exports = {
     libraryTarget: "umd"
   },
   externals: {
-    "megadraft": "Megadraft",
-    "react": "React",
-    "react-dom": "ReactDOM"
+    "megadraft": "megadraft",
+    "react": "react",
+    "react-dom": "react-dom"
   },
   devtool: "source-map",
   devServer: {
